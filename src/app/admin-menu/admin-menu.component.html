@@ -1,0 +1,381 @@
+<div class="container">
+    <h2>Hello {{currentUser.userName}},</h2>
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#tech">Edit Technologies</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accounts">Manage Accounts</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reports">Payments & Reports</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission">Edit commission</a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="tech" class="tab-pane fade show active">
+            <div class="card">
+                <h5 class="card-header">
+                    <div class="row">
+                        <div class="col text-center">
+                            Technology
+                        </div>
+                        <div class="col text-center">
+                            Fee
+                        </div>
+                        <div class="col text-center">
+                            Actions
+                        </div>
+                    </div>
+
+                </h5>
+                <div class="card-body" #tech1>
+                    <div class="row">
+                        <div class="col text-center">
+                            Java fundamentals
+                        </div>
+                        <div class="col text-center">
+                            &#8377;40,000
+                        </div>
+                        <div class="col text-center">
+                            <button class="btn btn-primary m-2" type="button">Edit</button>
+                            <button class="btn btn-danger m-2" type="button" (click)="tech1.remove()">Remove</button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="card-body" #tech2>
+                    <div class="row">
+                        <div class="col text-center">
+                            Spring
+                        </div>
+                        <div class="col text-center">
+                            &#8377;45,000
+                        </div>
+                        <div class="col text-center">
+                            <button class="btn btn-primary m-2" type="button">Edit</button>
+                            <button class="btn btn-danger m-2" type="button" (click)="tech2.remove()">Remove</button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="card-body" #tech3>
+                    <div class="row">
+                        <div class="col text-center">
+                            Angular
+                        </div>
+                        <div class="col text-center">
+                            &#8377;40,000
+                        </div>
+                        <div class="col text-center">
+                            <button class="btn btn-primary m-2" type="button">Edit</button>
+                            <button class="btn btn-danger m-2" type="button" (click)="tech3.remove()">Remove</button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center align-center">
+                            <input type="text" class="form-control" placeholder="Technology">
+                        </div>
+                        <div class="col text-center align-center">
+                            <input type="text" class="form-control" placeholder="Fee">
+                        </div>
+                        <div class="col text-center">
+                            <button class="btn btn-success" type="button">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <hr> -->
+            </div>
+
+
+        </div>
+        <div id="accounts" class="tab-pane fade">
+            <div class="card">
+                <h5 class="card-header">
+                    <div class="row">
+                        <div class="col text-center">
+                            Name
+                        </div>
+                        <div class="col text-center">
+                            e-mail
+                        </div>
+                        <div class="col text-center">
+                            Type
+                        </div>
+                        <div class="col text-center">
+                            Actions
+                        </div>
+                    </div>
+
+                </h5>
+
+                <div *ngFor="let userdata of users" class="card-body">
+                    <!-- *ngIf="userdata.role!='admin'"  -->
+                    <div *ngIf="userdata.role!='admin'" class="row">
+                        <div class="col text-center">
+                            {{userdata.userName}}
+                        </div>
+                        <div class="col text-center">
+                            {{userdata.email}}
+                        </div>
+                        <div class="col text-center">
+                            {{userdata.role}}
+                        </div>
+                        <div class="col text-center">
+
+                            <button class="btn btn-success" type="button">Unblock</button>
+                            <button class="btn btn-danger" type="button">Block</button>
+                        </div>
+
+                    </div>
+                    <!-- <hr> -->
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <div id="reports" class="tab-pane fade">
+            <br>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" style="width: 30%" type="search" placeholder="Search payments"
+                    aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+            </form>
+            <div class="card">
+                <h5 class="card-header">
+                    <div class="row">
+                        <div class="col text-center">
+                            Timestamp
+                        </div>
+                        <div class="col text-center">
+                            User
+                        </div>
+                        <div class="col text-center">
+                            Trainer
+                        </div>
+                        <div class="col text-center">
+                            Course
+                        </div>
+                        <div class="col text-center">
+                            Fee
+                        </div>
+                        <div class="col text-center">
+                            Commission(%)
+                        </div>
+                    </div>
+
+                </h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            Mon 01-01-2019 6:00
+                        </div>
+                        <div class="col text-center">
+                            Sam
+                        </div>
+                        <div class="col text-center">
+                            Joseph
+                        </div>
+                        <div class="col text-center">
+
+                            Angular
+                        </div>
+                        <div class="col text-center">
+
+                            &#8377;40,000
+                        </div>
+                        <div class="col text-center">
+
+                            10
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            Wed 21-01-2019 6:00
+                        </div>
+                        <div class="col text-center">
+                            Eric
+                        </div>
+                        <div class="col text-center">
+                            Kiran
+                        </div>
+                        <div class="col text-center">
+
+                            Spring
+                        </div>
+                        <div class="col text-center">
+
+                            &#8377;45,000
+                        </div>
+                        <div class="col text-center">
+
+                            12
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            Fri 11-01-2019 21:00
+                        </div>
+                        <div class="col text-center">
+                            Ashok
+                        </div>
+                        <div class="col text-center">
+                            Ganesh
+                        </div>
+                        <div class="col text-center">
+
+                            Java fundamentals
+                        </div>
+                        <div class="col text-center">
+
+                            &#8377;35,000
+                        </div>
+                        <div class="col text-center">
+
+                            8
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <form class="form-inline">
+                <select class="form-control col-4 mr-sm-2" name="timeSlot">
+                    <option>-- Select trainer --</option>
+                    <option>Sam</option>
+                    <option>Eric</option>
+                    <option>John</option>
+
+                </select>
+                <button name="" id="" class="btn btn-primary" type="button">Display Reports</button>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Course Name</th>
+                        <th scope="col">Progress(%)</th>
+                        <th scope="col">Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mike</td>
+                        <td>Spring</td>
+                        <td>25</td>
+                        <td>&#8377;11,250</td>
+                    </tr>
+                    <tr>
+                        <td>Tom</td>
+                        <td>Angular</td>
+                        <td>75</td>
+                        <td>&#8377;33,750</td>
+                    </tr>
+                    <tr>
+                        <td>Joseph</td>
+                        <td>Java</td>
+                        <td>100</td>
+                        <td>&#8377;35,000</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Total Revenue</th>
+                        <td>&#8377;80,000/-</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <div id="commission" class="tab-pane fade">
+            <div class="card">
+                <h5 class="card-header">
+                    <div class="row">
+                        <div class="col text-center">
+                            Course
+                        </div>
+                        <div class="col text-center">
+                            Fee
+                        </div>
+                        <div class="col text-center">
+                            Commission(%)
+                        </div>
+                        <div class="col text-center">
+                            Action
+                        </div>
+                    </div>
+
+                </h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            Java fundamentals
+                        </div>
+                        <div class="col text-center">
+                            &#8377;40,000
+                        </div>
+                        <div class="col text-center">
+                            <input type="number" class="form-control" value="10">
+                        </div>
+                        <div class="col text-center">
+
+                            <button class="btn btn-primary" type="button">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            Spring
+                        </div>
+                        <div class="col text-center">
+                            &#8377;45,000
+                        </div>
+                        <div class="col text-center">
+                            <input type="number" class="form-control" value="12">
+                        </div>
+                        <div class="col text-center">
+
+                            <button class="btn btn-primary" type="button">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            Angular
+                        </div>
+                        <div class="col text-center">
+                            &#8377;40,000
+                        </div>
+                        <div class="col text-center">
+                            <input type="number" class="form-control" value="8">
+                        </div>
+                        <div class="col text-center">
+
+                            <button class="btn btn-primary" type="button">Update</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container pt-3">
+    <form class="form-inline" [formGroup]="searchForm">
+        <!-- remove later: standalone -->
+        <input [(ngModel)]="query" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" style="width: 30%"
+            type="search" placeholder="Spring boot" aria-label="Search">
+        <select class="form-control mr-sm-2">
+            <option selected="">Select course duration</option>
+            <option>1 month</option>
+            <option>3 months</option>
+            <option>6 months</option>
+        </select>
+        <span>from&nbsp;</span>
+        <input class="form-control mr-sm-2" type="date" placeholder="select start date" aria-label="Search">
+        <select class="form-control mr-sm-2" name="timeSlot">
+            <option>-- Select time slot --</option>
+            <option>10:00 AM - 12:00 PM</option>
+            <option>11:00 AM - 01:00 PM</option>
+            <option>02:00 PM - 04:00 PM</option>
+            <option>03:00 PM - 05:00 PM</option>
+            <option>06:00 PM - 08:00 PM</option>
+            <option>09:00 PM - 11:00 PM</option>
+            <option>10:00 PM - 12:00 PM</option>
+        </select>
+
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <b>Search results for '{{query}}' training</b>
+    <!-- edit here to activate modal -->
+    <div *ngFor="let data of searchData; let i = index">
+        <div class="modal fade" attr.id="demo{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mentor Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <img src="{{data.avatar}}" width="150px" height="150px" class="rounded float-left"
+                                    alt="">
+                            </div>
+                            <div class="col text-center pt-5">
+                                Trainer: <br>
+                                <b>{{data.trainer}}</b>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <span class="btn btn-secondary">
+                                    Experience(years) <span class="badge badge-light">{{data.experience}}</span>
+                                </span>
+                            </div>
+                            <div class="col text-center pt-5">
+                                Average rating:<br>
+                                <span class="fa fa-star" [ngClass]="{'starred': data.rating >='1'}"></span>
+                                <span class="fa fa-star" [ngClass]="{'starred': data.rating >='2'}"></span>
+                                <span class="fa fa-star" [ngClass]="{'starred': data.rating >='3'}"></span>
+                                <span class="fa fa-star" [ngClass]="{'starred': data.rating >='4'}"></span>
+                                <span class="fa fa-star" [ngClass]="{'starred': data.rating >='5'}"></span>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <span class="btn btn-secondary">
+                                    Trainings<br>Completed <span class="badge badge-light">{{data.trainings}}</span>
+                                </span>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <span class="btn btn-info">
+                                    Fee <span class="badge badge-light">&#8377;{{data.fee}}</span>
+                                </span>
+                            </div>
+                            <div class="col text-center pt-5">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="propose()" >Propose Training</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mt-2" data-toggle="modal" attr.data-target="#demo{{i}}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <img src="{{data.avatar}}" width="150px" height="150px" class="rounded float-left" alt="">
+                    </div>
+                    <div class="col text-center pt-5">
+                        Trainer: <br>
+                        <b>{{data.trainer}}</b>
+                    </div>
+
+                    <div class="col text-center pt-5">
+                        Average rating:<br>
+                        <span class="fa fa-star" [ngClass]="{'starred': data.rating >='1'}"></span>
+                        <span class="fa fa-star" [ngClass]="{'starred': data.rating >='2'}"></span>
+                        <span class="fa fa-star" [ngClass]="{'starred': data.rating >='3'}"></span>
+                        <span class="fa fa-star" [ngClass]="{'starred': data.rating >='4'}"></span>
+                        <span class="fa fa-star" [ngClass]="{'starred': data.rating >='5'}"></span>
+                    </div>
+                    <div class="col text-center pt-5">
+                        <span class="btn btn-secondary">
+                            Trainings<br>Completed <span class="badge badge-light">{{data.trainings}}</span>
+                        </span>
+                    </div>
+
+                    <div class="col text-center pt-5">
+                            <!-- (click)="propose()" -->
+                            <button type="button" class="btn btn-success"  >Propose Training</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

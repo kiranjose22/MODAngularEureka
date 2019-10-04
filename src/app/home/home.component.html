@@ -1,0 +1,35 @@
+<div class="container pt-3">
+    <div class="row">
+        <div class="col">
+            <h2><br><br>Welcome to <br>Mentor On Demand <br><br></h2>
+            <form class="form-inline" [formGroup]="searchForm">
+                <input class="form-control mr-sm-2" style="width: 100%" type="search" placeholder="Search for courses"
+                    aria-label="Search"> <br> <br>
+                <select class="form-control mr-sm-2">
+                    <option selected="">Select course duration</option>
+                    <option>1 month</option>
+                    <option>3 months</option>
+                    <option>6 months</option>
+                </select>
+                <span>from&nbsp;</span>
+                <input class="form-control mr-sm-2" type="date" placeholder="select start date" aria-label="Search">
+                <select class="form-control mr-sm-2" name="timeSlot">
+                    <option>-- Select time slot --</option>
+                    <option>10:00 AM - 12:00 PM</option>
+                    <option>11:00 AM - 01:00 PM</option>
+                    <option>02:00 PM - 04:00 PM</option>
+                    <option>03:00 PM - 05:00 PM</option>
+                    <option>06:00 PM - 08:00 PM</option>
+                    <option>09:00 PM - 11:00 PM</option>
+                    <option>10:00 PM - 12:00 PM</option>
+                </select>
+                <button class="btn btn-outline-success my-2 my-sm-0" (click)="search()" >Search</button>
+            </form>
+
+        </div>
+        <div class="col">
+            <h1><br></h1>
+            <img src="../../assets/landing.svg" class="img-fluid w-100" alt="Responsive image">
+        </div>
+    </div>
+</div>
