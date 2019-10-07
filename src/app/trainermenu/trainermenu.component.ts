@@ -37,26 +37,46 @@ export class TrainermenuComponent implements OnInit {
     this.currentUser = this.loginProcess.getCurrentUser();
     this.dpname = this.currentUser.userName;
     this.registrationForm = new FormGroup({
-      userName: new FormControl(this.currentUser.userName),
-      email: new FormControl(this.currentUser.email),
-      phone: new FormControl(this.currentUser.phone),
-      password: new FormControl(this.currentUser.password),
-      // newpassword: new FormControl(''),
-      experience: new FormControl(this.currentUser.experience),
-      timezone: new FormControl(this.currentUser.timezone),
-      timeslot: new FormControl(this.currentUser.timeslot),
+      // userName: new FormControl(this.currentUser.userName),
+      // email: new FormControl(this.currentUser.email),
+      // phone: new FormControl(this.currentUser.phone),
+      // password: new FormControl(this.currentUser.password),
+      // // newpassword: new FormControl(''),
+      // experience: new FormControl(this.currentUser.experience),
+      // timezone: new FormControl(this.currentUser.timezone),
+      // timeslot: new FormControl(this.currentUser.timeslot),
 
-      linkedin: new FormControl(this.currentUser.linkedin),
-      skills: new FormControl(this.currentUser.skills),
-      videos: new FormControl(this.currentUser.videos),
-      blogs: new FormControl(this.currentUser.blogs),
-      ppts: new FormControl(this.currentUser.ppts),
-      demos: new FormControl(this.currentUser.demos),
-      startdate: new FormControl(this.currentUser.startdate),
-      enddate: new FormControl(this.currentUser.enddate),
+      // linkedin: new FormControl(this.currentUser.linkedin),
+      // skills: new FormControl(this.currentUser.skills),
+      // videos: new FormControl(this.currentUser.videos),
+      // blogs: new FormControl(this.currentUser.blogs),
+      // ppts: new FormControl(this.currentUser.ppts),
+      // demos: new FormControl(this.currentUser.demos),
+      // startdate: new FormControl(this.currentUser.startdate),
+      // enddate: new FormControl(this.currentUser.enddate),
+
+      // role: new FormControl('mentor'),
+      // status: new FormControl(this.currentUser.status)
+      userName: new FormControl(),
+      email: new FormControl(),
+      phone: new FormControl(),
+      password: new FormControl(),
+      // newpassword: new FormControl(''),
+      experience: new FormControl(),
+      timezone: new FormControl(),
+      timeslot: new FormControl(),
+
+      linkedin: new FormControl(),
+      skills: new FormControl(),
+      videos: new FormControl(),
+      blogs: new FormControl(),
+      ppts: new FormControl(),
+      demos: new FormControl(),
+      startdate: new FormControl(),
+      enddate: new FormControl(),
 
       role: new FormControl('mentor'),
-      status: new FormControl(this.currentUser.status)
+      status: new FormControl()
     });
 
 
@@ -71,15 +91,32 @@ export class TrainermenuComponent implements OnInit {
     this.loggedin = this.loginProcess.loggedin;
     if (!this.loggedin)
       this.route.navigate(['/login']);
-    // this.registrationForm.patchValue(this.currentUser);
+    this.registrationForm.patchValue(this.currentUser);
 
   }
+  reloadComponent() {
+    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.route.onSameUrlNavigation = 'reload';
+    this.route.navigate(['/trainer-menu']);
+}
   addNew(user) {
     console.log(user);
     // window.alert('User added');
-    this.addUserService.addNew(user);
+    this.addUserService.addNewMentor(user);
+    
+    this.loginProcess.update();
+
+    this.loginProcess.authenticate(this.currentUser);
+
     this.currentUser = this.loginProcess.getCurrentUser();
+
     // this.submitted = true;
+    // this.reloadComponent();
+    // this.reloadComponent();
+    // this.registrationForm.patchValue(this.loginProcess.getCurrentUser());
+    // this.registrationForm.patchValue(this.currentUser)
+    // this.ngOnInit()
+    // this.route.navigate(['/trainer-menu'])
   }
 
 

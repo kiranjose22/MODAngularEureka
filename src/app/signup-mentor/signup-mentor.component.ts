@@ -53,7 +53,7 @@ export class SignupMentorComponent implements OnInit {
   addNew(user) {
     console.log(user);
     // window.alert('User added');
-    this.addUserService.addNew(user);
+    this.addUserService.addNewMentor(user);
     this.submitted = true;
   }
 

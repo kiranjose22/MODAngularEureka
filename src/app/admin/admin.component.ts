@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl,Validators } from '@angular/forms';
 import { LoginprocessService } from '../loginprocess.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -14,7 +15,8 @@ export class AdminComponent implements OnInit {
   wrong = false;
 
   constructor(public router: Router,
-    private loginProcess: LoginprocessService) {
+    private loginProcess: LoginprocessService,
+    private http: HttpClient) {
     this.loginForm = new FormGroup({
 
       email: new FormControl('',[Validators.required,Validators.email]),
@@ -37,6 +39,9 @@ export class AdminComponent implements OnInit {
       this.router.navigate(['/admin-menu']);
     }
 
+  }
+  blockUser(user) {
+    this.http.get("/api/block/user/"+user)
   }
 
 }

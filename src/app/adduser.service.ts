@@ -14,7 +14,13 @@ export class AdduserService {
   addNew(user) {
     console.log(user);
     users.push(user);
-    this.http.post("/api/users",user).subscribe();
+    this.http.post("/api/user/users",user).subscribe();
+    console.log(users);
+  }
+  addNewMentor(user) {
+    console.log(user);
+    users.push(user);
+    this.http.post("/api/mentor/mentors",user).subscribe();
     console.log(users);
   }
 
