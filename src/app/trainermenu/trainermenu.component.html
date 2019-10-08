@@ -37,7 +37,8 @@
                                 <div class="progress" *ngIf="data.status =='Ongoing'">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
                                         role="progressbar" aria-valuenow="data.completion" aria-valuemin="0"
-                                        aria-valuemax="100" [style.width]="data.completion+'%'">{{data.completion}}%</div>
+                                        aria-valuemax="100" [style.width]="data.completion+'%'">{{data.completion}}%
+                                    </div>
                                 </div> <br>
 
 
@@ -88,11 +89,12 @@
             <div class="form-group col-6" [formGroup]="registrationForm">
 
                 <select formControlName="skills" multiple class="form-control" id="exampleFormControlSelect2">
-                    <option value="Spring">Spring</option>
-                    <option value="Angular">Angular</option>
+                    <option *ngFor="let skill of technologies;let i=index" [value]="skill.skill">{{skill.skill}}
+                    </option>
+                    <!-- <option value="Angular">Angular</option>
                     <option value="Git">Git</option>
                     <option value="Core Java">Core Java</option>
-                    <option value="Python">Python</option>
+                    <option value="Python">Python</option> -->
                 </select>
             </div>
 
@@ -133,7 +135,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input [(ngModel)]="dpname" formControlName="userName" class="form-control" placeholder="Full name" type="text">
+                    <input [(ngModel)]="dpname" formControlName="userName" class="form-control" placeholder="Full name"
+                        type="text">
                 </div>
                 <!-- <div class="form-group input-group">
                     <div class="input-group-prepend">

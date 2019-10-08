@@ -261,11 +261,14 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Skills</label>
                     <select formControlName="skills" multiple class="form-control" id="exampleFormControlSelect2">
-                        <option value="Spring">Spring</option>
-                        <option value="Angular">Angular</option>
+
+                        <option *ngFor="let skill of technologies;let i=index" [value]="skill.skill">{{skill.skill}}
+                        </option>
+
+                        <!-- <option value="Angular">Angular</option>
                         <option value="Git">Git</option>
                         <option value="Core Java">Core Java</option>
-                        <option value="Python">Python</option>
+                        <option value="Python">Python</option> -->
                     </select>
                 </div>
 
@@ -283,7 +286,8 @@
                 </div>
                 <input type="hidden" formControlName="role" class="form-control">
 
-                <button  [disabled]="!registrationForm.valid" type="submit" class="btn btn-primary btn-block"> Create Account </button>
+                <button [disabled]="!registrationForm.valid" type="submit" class="btn btn-primary btn-block"> Create
+                    Account </button>
 
                 <p class="text-center">Have an account? <a routerLink="../login">Login</a> </p>
             </form>

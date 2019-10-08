@@ -14,6 +14,7 @@ export class SearchResultComponent implements OnInit {
   searchForm
   searchData
   loggedin
+  technologies
   public query = "Spring Boot"
 
   constructor(
@@ -28,9 +29,13 @@ export class SearchResultComponent implements OnInit {
 
       time: new FormControl('')
     });
-    this.dataReader.getJSON('results').subscribe(data => {
+    // this.dataReader.getJSON('results').subscribe(data => {
+    //   console.log(data);
+    //   this.searchData = data
+    // });
+    this.dataReader.getJSON('admin/technologies').subscribe(data => {
       console.log(data);
-      this.searchData = data
+      this.technologies = data
     });
 
   }

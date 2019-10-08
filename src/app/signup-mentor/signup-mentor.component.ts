@@ -22,6 +22,11 @@ export class SignupMentorComponent implements OnInit {
     private dataReader: DataReaderService
   ) {
 
+    this.dataReader.getJSON('mentor/skills').subscribe(data => {
+      console.log(data);
+      this.technologies = data
+    });
+
     this.registrationForm = new FormGroup({
       userName: new FormControl('',Validators.required),
       email: new FormControl('',[Validators.required,Validators.email]),
@@ -32,7 +37,7 @@ export class SignupMentorComponent implements OnInit {
       timeslot: new FormControl('undefined'),
       
       linkedin: new FormControl(''),
-      skills: new FormControl(['na']),
+      skills: new FormControl(['other']),
       videos: new FormControl(false),
       blogs: new FormControl(false),
       ppts: new FormControl(false),

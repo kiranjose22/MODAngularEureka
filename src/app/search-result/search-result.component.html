@@ -1,30 +1,31 @@
 <div class="container pt-3">
-    <form class="form-inline" [formGroup]="searchForm">
+    <form class="form-inline">
+        <!-- [formGroup]="searchForm" -->
         <!-- remove later: standalone -->
-        <input [(ngModel)]="query" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" style="width: 30%"
-            type="search" placeholder="Spring boot" aria-label="Search">
+        <!-- <input [(ngModel)]="query" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" style="width: 30%"
+            type="search" placeholder="Spring boot" aria-label="Search"> -->
         <select class="form-control mr-sm-2">
-            <option selected="">Select course duration</option>
-            <option>1 month</option>
-            <option>3 months</option>
-            <option>6 months</option>
+            <option selected="">Select course</option>
+            <option *ngFor="let skill of technologies;let i=index" [value]="skill.technology">{{skill.technology}}
+            </option>
         </select>
-        <span>from&nbsp;</span>
         <input class="form-control mr-sm-2" type="date" placeholder="select start date" aria-label="Search">
+        <span>to&nbsp;</span>
+        <input class="form-control mr-sm-2" type="date" placeholder="select end date" aria-label="Search">
         <select class="form-control mr-sm-2" name="timeSlot">
-            <option>-- Select time slot --</option>
-            <option>10:00 AM - 12:00 PM</option>
-            <option>11:00 AM - 01:00 PM</option>
-            <option>02:00 PM - 04:00 PM</option>
-            <option>03:00 PM - 05:00 PM</option>
-            <option>06:00 PM - 08:00 PM</option>
-            <option>09:00 PM - 11:00 PM</option>
-            <option>10:00 PM - 12:00 PM</option>
+            <option value="undefined">-- Select preferred time slot --</option>
+            <option value="1">10:00 AM - 12:00 PM</option>
+            <option value="2">11:00 AM - 01:00 PM</option>
+            <option value="3">02:00 PM - 04:00 PM</option>
+            <option value="4">03:00 PM - 05:00 PM</option>
+            <option value="5">06:00 PM - 08:00 PM</option>
+            <option value="6">09:00 PM - 11:00 PM</option>
+            <option value="7">10:00 PM - 12:00 PM</option>
         </select>
 
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <b>Search results for '{{query}}' training</b>
+    <b>Search results </b>
     <!-- edit here to activate modal -->
     <div *ngFor="let data of searchData; let i = index">
         <div class="modal fade" attr.id="demo{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -71,7 +72,8 @@
                                 </span>
                             </div>
                             <div class="col text-center pt-5">
-                                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="propose()" >Propose Training</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal"
+                                    (click)="propose()">Propose Training</button>
                             </div>
                         </div>
                     </div>
@@ -110,8 +112,8 @@
                     </div>
 
                     <div class="col text-center pt-5">
-                            <!-- (click)="propose()" -->
-                            <button type="button" class="btn btn-success"  >Propose Training</button>
+                        <!-- (click)="propose()" -->
+                        <button type="button" class="btn btn-success">Propose Training</button>
                     </div>
                 </div>
             </div>

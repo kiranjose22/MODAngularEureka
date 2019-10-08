@@ -17,6 +17,7 @@ export class TrainermenuComponent implements OnInit {
   completedUserData
   loggedin
   registrationForm
+  technologies
   public dpname 
   constructor(
     private loginProcess: LoginprocessService,
@@ -33,6 +34,10 @@ export class TrainermenuComponent implements OnInit {
     this.dataReader.getJSON('current-trainings.json').subscribe(data => {
       console.log(data);
       this.currentUserData = data
+    });
+    this.dataReader.getJSON('mentor/skills').subscribe(data => {
+      console.log(data);
+      this.technologies = data
     });
     this.currentUser = this.loginProcess.getCurrentUser();
     this.dpname = this.currentUser.userName;
