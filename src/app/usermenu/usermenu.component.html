@@ -1,4 +1,7 @@
-<div class="container" *ngIf="loggedin">
+<div *ngIf="currentUser.status=='blocked'" class="alert alert-danger" role="alert">
+    Sorry, your account is BLOCKED!! Please contact the administrator.
+</div>
+<div class="container" *ngIf="loggedin && currentUser.status=='unblocked'">
     <h2>Hello {{currentUser.userName}},</h2>
     <ul class="nav nav-tabs">
         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#search">Search Trainings</a>

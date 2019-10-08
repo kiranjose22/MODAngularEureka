@@ -7,8 +7,8 @@
         </li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reports">Payments & Reports</a>
         </li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission">Edit commission</a>
-        </li>
+        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission">Edit commission</a>
+        </li> -->
 
     </ul>
 
@@ -21,7 +21,10 @@
                             Technology
                         </div>
                         <div class="col text-center">
-                            Fee
+                            Fee(&#8377;)
+                        </div>
+                        <div class="col text-center">
+                            Commission(%)
                         </div>
                         <div class="col text-center">
                             Actions
@@ -29,23 +32,33 @@
                     </div>
 
                 </h5>
-                <div class="card-body" #tech1>
+                <div *ngFor="let techdata of technologies; let i=index" class="card-body">
                     <div class="row">
                         <div class="col text-center">
-                            Java fundamentals
+                            {{techdata.technology}}
+                        </div>
+
+                        <div class="col text-center">
+                            <!-- <form [formGroup]="editForm"> -->
+                                <input #fee type="number" [value]="techdata.fee" class="form-control">
+                            <!-- </form> -->
                         </div>
                         <div class="col text-center">
-                            &#8377;40,000
+                            <!-- <form [formGroup]="editForm"> -->
+                                <input #commission type="number" [value]="techdata.commission" class="form-control">
+                            <!-- </form> -->
                         </div>
                         <div class="col text-center">
-                            <button class="btn btn-primary m-2" type="button">Edit</button>
-                            <button class="btn btn-danger m-2" type="button" (click)="tech1.remove()">Remove</button>
+                            <button class="btn btn-primary m-2" type="button"
+                                (click)="editTechnology(techdata,fee.value,commission.value)">Edit</button>
+                            <button class="btn btn-danger m-2" type="button"
+                                (click)="removeTechnology(techdata.technology)">Remove</button>
                         </div>
                     </div>
                     <hr>
                 </div>
 
-                <div class="card-body" #tech2>
+                <!-- <div class="card-body" #tech2>
                     <div class="row">
                         <div class="col text-center">
                             Spring
@@ -59,9 +72,9 @@
                         </div>
                     </div>
                     <hr>
-                </div>
+                </div> -->
 
-                <div class="card-body" #tech3>
+                <!-- <div class="card-body" #tech3>
                     <div class="row">
                         <div class="col text-center">
                             Angular
@@ -75,20 +88,29 @@
                         </div>
                     </div>
                     <hr>
-                </div>
+                </div> -->
 
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col text-center align-center">
-                            <input type="text" class="form-control" placeholder="Technology">
+                    <!-- <div class="row"> -->
+                    <form [formGroup]="techForm" (ngSubmit)="addTechnology(techForm.value)">
+                        <div class="row">
+                            <div class="col text-center align-center">
+                                <input formControlName="technology" type="text" class="form-control"
+                                    placeholder="Technology">
+                            </div>
+                            <div class="col text-center align-center">
+                                <input formControlName="fee" type="text" class="form-control" placeholder="Fee">
+                            </div>
+                            <div class="col text-center align-center">
+                                <input formControlName="commission" type="text" class="form-control"
+                                    placeholder="Commission">
+                            </div>
+                            <div class="col text-center">
+                                <button class="btn btn-success" type="submit">Add</button>
+                            </div>
                         </div>
-                        <div class="col text-center align-center">
-                            <input type="text" class="form-control" placeholder="Fee">
-                        </div>
-                        <div class="col text-center">
-                            <button class="btn btn-success" type="button">Add</button>
-                        </div>
-                    </div>
+                    </form>
+                    <!-- </div> -->
                 </div>
                 <!-- <hr> -->
             </div>
@@ -115,7 +137,7 @@
 
                 </h5>
 
-                <div *ngFor="let userdata of users" class="card-body">
+                <div *ngFor="let userdata of users; let i = index" class="card-body">
                     <!-- *ngIf="userdata.role!='admin'"  -->
                     <div *ngIf="userdata.role!='admin'" class="row">
                         <div class="col text-center">
@@ -129,15 +151,17 @@
                         </div>
                         <div class="col text-center">
 
-                            <button *ngIf="userdata.status=='blocked'" class="btn btn-success" type="button">Unblock</button>
-                            <button *ngIf="userdata.status!='blocked'" (click)="blockUser(userdata.email)" class="btn btn-danger" type="button">Block</button>
+                            <button *ngIf="userdata.status=='blocked'" (click)="blockUser(userdata.email,i)"
+                                class="btn btn-success" type="button">Unblock</button>
+                            <button *ngIf="userdata.status!='blocked'" (click)="blockUser(userdata.email,i)"
+                                class="btn btn-danger" type="button">Block</button>
                         </div>
 
                     </div>
                     <!-- <hr> -->
                 </div>
                 <!-- <hr> -->
-                <div *ngFor="let userdata of mentors" class="card-body">
+                <div *ngFor="let userdata of mentors; let i = index" class="card-body">
                     <!-- *ngIf="userdata.role!='admin'"  -->
                     <div *ngIf="userdata.role!='admin'" class="row">
                         <div class="col text-center">
@@ -151,8 +175,10 @@
                         </div>
                         <div class="col text-center">
 
-                            <button *ngIf="userdata.status=='blocked'" class="btn btn-success" type="button">Unblock</button>
-                            <button *ngIf="userdata.status!='blocked'" class="btn btn-danger" type="button">Block</button>
+                            <button *ngIf="userdata.status=='blocked'" (click)="blockMentor(userdata.email,i)"
+                                class="btn btn-success" type="button">Unblock</button>
+                            <button *ngIf="userdata.status!='blocked'" (click)="blockMentor(userdata.email,i)"
+                                class="btn btn-danger" type="button">Block</button>
                         </div>
 
                     </div>
@@ -324,7 +350,7 @@
         </div>
 
 
-        <div id="commission" class="tab-pane fade">
+        <!-- <div id="commission" class="tab-pane fade">
             <div class="card">
                 <h5 class="card-header">
                     <div class="row">
@@ -398,6 +424,6 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

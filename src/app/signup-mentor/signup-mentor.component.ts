@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl , FormArray ,Validators} from '@angular/forms';
 import { users } from '../users';
+import { DataReaderService } from '../data-reader.service';
 
 import { AdduserService } from '../adduser.service';
 
@@ -12,11 +13,13 @@ import { AdduserService } from '../adduser.service';
 export class SignupMentorComponent implements OnInit {
 
   registrationForm
+  technologies
   // materialForm
   submitted = false;
 
   constructor(
-    private addUserService: AdduserService
+    private addUserService: AdduserService,
+    private dataReader: DataReaderService
   ) {
 
     this.registrationForm = new FormGroup({
