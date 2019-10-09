@@ -4,6 +4,7 @@ import { LoginprocessService } from '../loginprocess.service';
 import { DataReaderService } from '../data-reader.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Course } from '../course';
 
 @Component({
   selector: 'app-search-result',
@@ -18,6 +19,7 @@ export class SearchResultComponent implements OnInit {
   technologies
   searchResults
   chosenTech
+  course: Course
   public query = "Spring Boot"
 
   constructor(
@@ -50,9 +52,30 @@ export class SearchResultComponent implements OnInit {
 
     this.loggedin = this.loginProcess.loggedin;
   }
-  propose() {
+  propose(data) {
     if(!this.loggedin)
       this.route.navigate(['/login']);
+    else {
+      console.log(this.chosenTech);
+      this.course={
+        coursename : this.chosenTech.technology,
+        fee: this.chosenTech.fee,
+        mentor:data.email,
+        progress:0,
+        status:"ApprovalPending",
+        user:this.loginProcess.currentUser.email,
+        id:0
+        // edited 
+      }
+      // this.course.coursename=this.chosenTech.technology
+      // this.course.fee=this.chosenTech.fee
+      // this.course.mentor=data.userName
+      // this.course.progress=0
+      // this.course.status="ApprovalPending"
+      // this.course.user=this.loginProcess.currentUser.userName
+      console.log(this.course)
+      this.http.post("/api/user/courses",this.course).subscribe();
+    }
   }
   search(formvalue) {
     // this.currentFee=formvalue.

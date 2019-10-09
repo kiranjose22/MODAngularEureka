@@ -14,6 +14,7 @@ export class UsermenuComponent implements OnInit {
 
   currentUser
   currentUserData
+  courseData
   completedUserData
   loggedin
   currentRating = 0;
@@ -25,13 +26,17 @@ export class UsermenuComponent implements OnInit {
     private dataReader: DataReaderService,
     private route: Router
   ) {
-    this.dataReader.getJSON('completed-trainings.json').subscribe(data => {
+    // this.dataReader.getJSON('completed-trainings.json').subscribe(data => {
+    //   console.log(data);
+    //   this.completedUserData = data
+    // });
+    // this.dataReader.getJSON('current-trainings.json').subscribe(data => {
+    //   console.log(data);
+    //   this.currentUserData = data
+    // });
+    this.dataReader.getJSON('user/courses').subscribe(data => {
       console.log(data);
-      this.completedUserData = data
-    });
-    this.dataReader.getJSON('current-trainings.json').subscribe(data => {
-      console.log(data);
-      this.currentUserData = data
+      this.courseData = data
     });
   }
 
@@ -50,6 +55,13 @@ export class UsermenuComponent implements OnInit {
       this.currentRating=0
     else
       this.currentRating = this.currentRating+1
+  }
+
+  update() {
+    this.dataReader.getJSON('user/courses').subscribe(data => {
+      console.log(data);
+      this.courseData = data
+    });
   }
 
 }
