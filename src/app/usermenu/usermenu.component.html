@@ -39,12 +39,12 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+                                <button (click)="updateProgress(data)" type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="data.user==currentUser.email" class="col card mt-2" #thiscard>
+                <div *ngIf="data.user==currentUser.email && data.status !='Completed' && data.status!='Payment Withdrawn' " class="col card mt-2" #thiscard>
                     <div class="card-body">
                         <div class="row">
                             <!-- <div class="col">
@@ -74,8 +74,8 @@
                             <div class="col text-center pt-2">
                                 <!-- <button *ngIf="data.status =='Ongoing'" type="button" class="btn btn-primary">Go to Course</button>
                                 <br> <br> -->
-                                <button *ngIf="data.status =='Payment Pending'" type="button"
-                                    class="btn btn-success m-2">Make payment</button><br>
+                                <button (click)="payStart(data)" *ngIf="data.status =='Approved'" type="button"
+                                    class="btn btn-success m-2">Pay and start course</button><br>
                                 <!-- <button *ngIf="data.status =='Ongoing'" type="button" class="btn btn-info m-2">Rate
                                     trainer</button><br> -->
                                 <!-- <ngb-rating [(ngModel)]="currentRate"></ngb-rating>
@@ -89,8 +89,9 @@
                                     <span class="fa fa-star" [ngClass]="{'starred': currentRating >='4'}"></span>
                                     <span class="fa fa-star" [ngClass]="{'starred': currentRating >='5'}"></span>
                                 </div> -->
-                                <button *ngIf="data.status !='Rejected'" type="button" class="btn btn-danger m-2">Cancel
-                                    Course</button>
+                                <!-- <button *ngIf="data.status !='Rejected'" type="button" class="btn btn-danger m-2">Cancel
+                                    Course</button> -->
+                                    <!-- check again -->
                                 <!-- <button *ngIf="data.status =='Rejected'" type="button" class="btn btn-primary m-2"
                                     (click)="thiscard.remove()">Remove</button> -->
                             </div>
@@ -103,24 +104,27 @@
         </div>
         <div id="completed" class="tab-pane fade">
             <!-- {{currentUserData[1].course}} -->
-            <div class="row" *ngFor="let data of completedUserData">
-                <div class="col card mt-2">
+            <div  class="row" *ngFor="let data of courseData">
+                <div *ngIf="(data.status =='Completed'||data.status=='Payment Withdrawn') && data.user==currentUser.email" class="col card mt-2">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col">
+                            <!-- <div class="col">
                                 <img src="{{data.logoUrl}}" width="150px" height="150px" class="rounded float-left"
                                     alt="">
-                            </div>
+                            </div> -->
                             <div class="col text-center pt-3">
                                 Course: <br>
-                                <b>{{data.course}}</b> <br>
+                                <b>{{data.coursename}}</b> <br>
                                 Trainer: <br>
-                                <b>{{data.trainer}}</b> <br>
-                                <span class="badge badge-success">Completed on {{data.completedOn}}</span>
+                                <b>{{data.mentor}}</b> <br>
+                                Status: <br>
+                                <span *ngIf="data.status !='Rejected'" class="badge badge-info">{{data.status}}</span>
+                                <!-- <span class="badge badge-success">Completed on {{data.completedOn}}</span> -->
                             </div>
                             <div class="col text-center pt-5">
                                 <button type="button" class="btn btn-primary">View Certificate</button>
                             </div>
+                            <!-- checkagain -->
                         </div>
                     </div>
                 </div>

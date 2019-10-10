@@ -62,7 +62,7 @@ export class SearchResultComponent implements OnInit {
         fee: this.chosenTech.fee,
         mentor:data.email,
         progress:0,
-        status:"ApprovalPending",
+        status:"Approval Pending",
         user:this.loginProcess.currentUser.email,
         id:0
         // edited 

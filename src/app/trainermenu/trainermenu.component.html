@@ -5,39 +5,41 @@
     <!-- <h2>Hello {{currentUser.userName}},</h2> -->
     <h2>Hello {{dpname}},</h2>
     <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#current">Current Trainings</a>
+        <li class="nav-item"><a class="nav-link active" (click)="update()" data-toggle="tab" href="#current">Current Trainings</a>
         </li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#completed">Completed Trainings</a>
+        <li class="nav-item"><a class="nav-link" (click)="update()" data-toggle="tab" href="#completed">Completed Trainings</a>
         </li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#edit">Edit Skills</a>
         </li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile">Profile</a>
         </li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#payments">Payments</a>
-        </li>
+        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#payments">Payments</a>
+        </li> -->
     </ul>
 
     <div class="tab-content">
         <div id="current" class="tab-pane fade show active">
-            <div class="row" *ngFor="let data of currentUserData">
+            <div class="row" *ngFor="let data of courseData">
 
-                <div class="col card mt-2" *ngIf="data.status !='Rejected'">
+                <div class="col card mt-2" *ngIf="data.status !='Rejected' && data.mentor==currentUser.email && data.status !='Completed' && data.status!='Payment Withdrawn'">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col">
+                            <!-- <div class="col">
                                 <img src="{{data.logoUrl}}" width="150px" height="150px" class="rounded float-left"
                                     alt="">
-                            </div>
+                            </div> -->
                             <div class="col text-center pt-2">
                                 Course: <br>
-                                <b>{{data.course}}</b> <br>
+                                <b>{{data.coursename}}</b> <br>
+                                Student: <br>
+                                <b>{{data.user}}</b> <br>
                                 Status: <br>
                                 <span *ngIf="data.status !='Rejected'" class="badge badge-info">{{data.status}}</span>
 
                                 <div class="progress" *ngIf="data.status =='Ongoing'">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                                        role="progressbar" aria-valuenow="data.completion" aria-valuemin="0"
-                                        aria-valuemax="100" [style.width]="data.completion+'%'">{{data.completion}}%
+                                        role="progressbar" aria-valuenow="data.progress" aria-valuemin="0"
+                                        aria-valuemax="100" [style.width]="data.progress+'%'">{{data.progress}}%
                                     </div>
                                 </div> <br>
 
@@ -46,12 +48,11 @@
                             <div class="col text-center pt-2">
                                 <!-- <button *ngIf="data.status =='Ongoing'" type="button" class="btn btn-primary">Go to Course</button>
                                         <br> <br> -->
-                                <button *ngIf="data.status =='Awaiting Confirmation'" type="button"
-                                    class="btn btn-success m-2">Confirm</button><br>
-                                <button *ngIf="data.status =='Ongoing'" type="button" class="btn btn-info m-2">View
-                                    Ratings</button><br>
-                                <button *ngIf="data.status !='Rejected'" type="button" class="btn btn-danger m-2">Cancel
-                                    Course</button>
+                                <button (click)="approve(data)" *ngIf="data.status =='Approval Pending'" type="button"
+                                    class="btn btn-success m-2">Approve</button><br>
+                                <button (click)="reject(data)" *ngIf="data.status =='Approval Pending'" type="button" class="btn btn-danger m-2">Reject</button><br>
+                                <!-- <button *ngIf="data.status !='Rejected'" type="button" class="btn btn-danger m-2">Cancel
+                                    Course</button> -->
 
 
                             </div>
@@ -63,20 +64,38 @@
 
         </div>
         <div id="completed" class="tab-pane fade">
-            <div class="row" *ngFor="let data of completedUserData">
-                <div class="col card mt-2">
+            <div class="row" *ngFor="let data of courseData">
+                <div  *ngIf="(data.status =='Completed'||data.status=='Payment Withdrawn') && data.mentor==currentUser.email"  class="col card mt-2">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col">
+                            <!-- <div class="col">
                                 <img src="{{data.logoUrl}}" width="150px" height="150px" class="rounded float-left"
                                     alt="">
-                            </div>
+                            </div> -->
                             <div class="col text-center pt-3">
                                 Course: <br>
-                                <b>{{data.course}}</b> <br>
+                                <b>{{data.coursename}}</b> <br>
+                                Student: <br>
+                                <b>{{data.user}}</b> <br>
+                                Status: <br>
+                                <span *ngIf="data.status !='Rejected'" class="badge badge-info">{{data.status}}</span>
 
-                                <span class="badge badge-success">Completed on {{data.completedOn}}</span>
+                                <!-- <span class="badge badge-success">Completed on {{data.completedOn}}</span> -->
                             </div>
+                            <div class="col text-center pt-2">
+                                <!-- <button *ngIf="data.status =='Ongoing'" type="button" class="btn btn-primary">Go to Course</button>
+                                        <br> <br> -->
+                                <button (click)="withdrawPayment(data)" *ngIf="data.status =='Completed'" type="button"
+                                    class="btn btn-success m-2">Withdraw Payment</button><br>
+                                <!-- <button *ngIf="data.status =='Approval Pending'" type="button" class="btn btn-danger m-2">Reject</button><br> -->
+                                <!-- <button *ngIf="data.status !='Rejected'" type="button" class="btn btn-danger m-2">Cancel
+                                    Course</button> -->
+
+
+                            </div>
+
+                            <!-- <button type="button" class="btn btn-primary">Withdraw
+                                payment</button> -->
 
                         </div>
                     </div>
@@ -401,7 +420,7 @@
             </form>
 
         </div>
-        <div id="payments" class="tab-pane fade">
+        <!-- <div id="payments" class="tab-pane fade">
             <br>
             <div class="accordion" id="accordionExample">
                 <div class="card">
@@ -519,6 +538,6 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

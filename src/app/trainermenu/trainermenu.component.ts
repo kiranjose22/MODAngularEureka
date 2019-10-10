@@ -4,6 +4,8 @@ import { DataReaderService } from '../data-reader.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { AdduserService } from '../adduser.service';
+import { Course } from '../course';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-trainermenu',
@@ -18,22 +20,29 @@ export class TrainermenuComponent implements OnInit {
   loggedin
   registrationForm
   technologies
+  courseData
+  course: Course
   public dpname 
   constructor(
     private loginProcess: LoginprocessService,
     // private navbar: NavbarComponent
     private dataReader: DataReaderService,
     private route: Router,
-    private addUserService: AdduserService
+    private addUserService: AdduserService,
+    private http: HttpClient
   ) {
 
-    this.dataReader.getJSON('completed-trainings.json').subscribe(data => {
+    // this.dataReader.getJSON('completed-trainings.json').subscribe(data => {
+    //   console.log(data);
+    //   this.completedUserData = data
+    // });
+    // this.dataReader.getJSON('current-trainings.json').subscribe(data => {
+    //   console.log(data);
+    //   this.currentUserData = data
+    // });
+    this.dataReader.getJSON('user/courses').subscribe(data => {
       console.log(data);
-      this.completedUserData = data
-    });
-    this.dataReader.getJSON('current-trainings.json').subscribe(data => {
-      console.log(data);
-      this.currentUserData = data
+      this.courseData = data
     });
     this.dataReader.getJSON('mentor/skills').subscribe(data => {
       console.log(data);
@@ -122,6 +131,55 @@ export class TrainermenuComponent implements OnInit {
     // this.registrationForm.patchValue(this.currentUser)
     // this.ngOnInit()
     // this.route.navigate(['/trainer-menu'])
+  }
+
+  update() {
+    this.dataReader.getJSON('user/courses').subscribe(data => {
+      console.log(data);
+      this.courseData = data
+    });
+  }
+  approve(data) {
+    this.course={
+      coursename : data.coursename,
+      fee: data.fee,
+      mentor:data.mentor,
+      progress:data.progress,
+      status:"Approved",
+      user:data.user,
+      id:data.id
+      // edited 
+    }
+    this.http.post("/api/user/courses",this.course).subscribe();
+    this.update();
+  }
+  reject(data) {
+    this.course={
+      coursename : data.coursename,
+      fee: data.fee,
+      mentor:data.mentor,
+      progress:data.progress,
+      status:"Rejected",
+      user:data.user,
+      id:data.id
+      // edited 
+    }
+    this.http.post("/api/user/courses",this.course).subscribe();
+    this.update();
+  }
+  withdrawPayment(data) {
+    this.course={
+      coursename : data.coursename,
+      fee: data.fee,
+      mentor:data.mentor,
+      progress:data.progress,
+      status:"Payment Withdrawn",
+      user:data.user,
+      id:data.id
+      // edited 
+    }
+    this.http.post("/api/user/courses",this.course).subscribe();
+    this.update();
   }
 
 
